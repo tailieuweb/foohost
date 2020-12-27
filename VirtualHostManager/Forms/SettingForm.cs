@@ -14,7 +14,7 @@ using VirtualHostManager.Service;
 
 namespace VirtualHostManager.Forms
 {
-    public partial class SettingForm : Form
+    public partial class SettingForm : BaseForm
     {
         private DataStorageService dataStorageService;
         private VirtualHostDataGridViewColumns hostDataGridViewColumns;

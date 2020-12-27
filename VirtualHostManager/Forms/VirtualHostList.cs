@@ -20,7 +20,7 @@ using VirtualHostManager.Service;
 
 namespace VirtualHostManager.Forms
 {
-    public partial class VirtualHostList : Form
+    public partial class VirtualHostList : BaseForm
     {
         private VirtualHostContext context;
         BindingList<VirtualHost> listVirtualHostForm = new BindingList<VirtualHost>();
@@ -28,8 +28,8 @@ namespace VirtualHostManager.Forms
 
         private int CurrentPage = 1;
         int PagesCount = 1;
-        int pageRows = 20;
-        public VirtualHostList()
+        int pageRows = 28;
+        public VirtualHostList() : base()
         {
 
             InitializeComponent();
@@ -42,14 +42,13 @@ namespace VirtualHostManager.Forms
                 context.Read();
                 setItems();
             }
+
+            getAllDrive();
             //var a = new GetDirectoryForm().ShowDialog();
             //setup();   //creating new column
         }
 
-        private void VirtualHostList_Load(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -125,7 +124,9 @@ namespace VirtualHostManager.Forms
         {
             try
             {
-                var data = context.data.Where(x => x.Url.Contains(textBox1.Text) || x.Directory.Contains(textBox1.Text)).ToList();
+                var diskPath = comboBox1.SelectedItem.ToString().Replace(@"\\", @"\");
+                var data = context.data.Where(x => x.Url.Contains(textBox1.Text) && (x.Directory.StartsWith(diskPath) || diskPath == "All")).ToList();
+
                 PagesCount = Convert.ToInt32(Math.Ceiling(data.Count * 1.0 / pageRows));
                 //Rebinding the Datagridview with data
                 int datasourcestartIndex = (CurrentPage - 1) * pageRows;
@@ -248,40 +249,6 @@ namespace VirtualHostManager.Forms
             setup();
         }
 
-        private void materialFlatButton1_Click(object sender, EventArgs e)
-        {
-            var model = new VirtualHost();
-            //listVirtualHostForm.Add(newItem);var dialog = new VirtualHostManager.Forms.VirtualHostDetail();
-            var dialog = new VirtualHostManager.Forms.VirtualHostDetail();
-            dialog.formType = VirtualHostDetailType.Edit;
-            dialog.Url = "";
-            dialog.Directory = "";
-            dialog.CreateAt = "";
-            dialog.Description = "";
-            dialog.Context = dataStorageService.VirualHostTemplateRead(AppConst.VirtualHostTemplate);
-            dialog.Status = true;
-            dialog.saveCallback = () =>
-            {
-                model.Url = dialog.Url;
-                model.Directory = dialog.Directory;
-                model.CreateAt = DateTime.Now.ToString();
-                model.UpdateAt = DateTime.Now.ToString();
-                model.Description = dialog.Description;
-                model.Context = dialog.Context;
-                model.Status = dialog.Status;
-                model.Author = dialog.Author;
-                context.data.Add(model);
-                //Rebind the Datagridview with the data.
-                RebindGridForPageChange();
-                setItems();
-            };
-            using (Panel p = this.blurPanel())
-            {
-                dialog.ShowDialog();
-            }
-
-        }
-
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridView gridView = sender as DataGridView;
@@ -324,6 +291,7 @@ namespace VirtualHostManager.Forms
 
                 dialog.saveCallback = () =>
                 {
+                    generateBackup();
                     model.Url = dialog.Url;
                     model.Directory = dialog.Directory;
                     model.CreateAt = dialog.CreateAt;
@@ -345,9 +313,11 @@ namespace VirtualHostManager.Forms
             {
                 DataGridView gridView = sender as DataGridView;
                 var index = Int32.Parse((string)gridView.Rows[e.RowIndex].HeaderCell.Value) - 1;
+                generateBackup();
                 context.data.RemoveAt(index);
                 RebindGridForPageChange();
             }
+
         }
 
         private void textBox1_Click(object sender, EventArgs e)
@@ -370,23 +340,29 @@ namespace VirtualHostManager.Forms
             {
                 var dialog = new VirtualHostManager.Forms.SettingForm();
                 dialog.ShowDialog();
+                setItems();
             }
-            setItems();
         }
 
 
         private void restartWampToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ServiceController sc = new ServiceController("wampapache64");
-
-            if (sc.Site != null && sc.Status == ServiceControllerStatus.Running)
+            try
             {
-                Task.Run(() =>
+                if (sc.CanStop == true && sc.Status == ServiceControllerStatus.Running)
                 {
-                    sc.Stop();
-                    sc.WaitForStatus(ServiceControllerStatus.Stopped);
-                    sc.Start();
-                });
+                    Task.Run(() =>
+                    {
+                        sc.Stop();
+                        sc.WaitForStatus(ServiceControllerStatus.Stopped);
+                        sc.Start();
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Không thể khởi dộng lại wamp", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -411,35 +387,141 @@ namespace VirtualHostManager.Forms
                 }
             }
         }
-        private Panel blurPanel()
-        {
-            // take a screenshot of the form and darken it:
-            Bitmap bmp = new Bitmap(this.ClientRectangle.Width, this.ClientRectangle.Height);
-            using (Graphics G = Graphics.FromImage(bmp))
-            {
-                G.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-                G.CopyFromScreen(this.PointToScreen(new Point(0, 0)), new Point(0, 0), this.ClientRectangle.Size);
-                double percent = 0.60;
-                Color darken = Color.FromArgb((int)(255 * percent), Color.Black);
-                using (Brush brsh = new SolidBrush(darken))
-                {
-                    G.FillRectangle(brsh, this.ClientRectangle);
-                }
-            }
-            // put the darkened screenshot into a Panel and bring it to the front:
-            Panel p = new Panel();
-            p.Location = new Point(0, 0);
-            p.Size = this.ClientRectangle.Size;
-            p.BackgroundImage = bmp;
-            this.Controls.Add(p);
-            p.BringToFront();
-
-            return p;
-        }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void generateBackup()
+        {
+            var fileName = Path.Combine(AppConst.BackupFolder,DateTime.Now.ToString("MMddyyyyhhmmss")+".txt");
+
+            if (!Directory.Exists(Path.Combine(Application.UserAppDataPath, AppConst.BackupFolder)))
+            {
+                Directory.CreateDirectory(Path.Combine(Application.UserAppDataPath, AppConst.BackupFolder));
+            }
+            dataStorageService.Save(fileName, context.data);
+        }
+
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (Panel p = this.blurPanel())
+            {
+                var dialog = new VirtualHostManager.Forms.BackupForm();
+                dialog.ShowDialog();
+                if (dialog.DialogResult == DialogResult.OK)
+                {
+                    context.data = dialog.result;
+                    setItems();
+                }
+            }
+        }
+
+        private void getAllDrive()
+        {
+            var drives = DriveInfo.GetDrives()
+                                  .Select(x => x.Name)
+                                  .ToList();
+            var t = DriveInfo.GetDrives();
+            drives = drives.Prepend("All").ToList();
+            comboBox1.DataSource = drives;
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            //Rebind the Datagridview with the data.
+            RebindGridForPageChange();
+
+            //Change the pagiantions buttons according to page number
+            RefreshPagination();
+        }
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenu m = new ContextMenu();
+
+                int columnIndex = dataGridView1.HitTest(e.X, e.Y).ColumnIndex;
+
+                if (columnIndex == dataGridView1.Columns["statusDataGridViewTextBoxColumn"].Index)
+                {
+                    m.MenuItems.Add(new MenuItem("Enable all items", menuItemStatusClick(true)));
+                    m.MenuItems.Add(new MenuItem("Disable all items", menuItemStatusClick(false)));
+
+                    m.Show(dataGridView1, new Point(e.X, e.Y));
+                }
+
+            }
+        }
+
+        private EventHandler menuItemStatusClick(bool value)
+        {
+            return (object sender, EventArgs e) => 
+            {
+                for(int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    var rowIndex = Int32.Parse((string)dataGridView1.Rows[i].HeaderCell.Value) - 1;
+                    context.data[rowIndex].Status = value;
+                }
+                RebindGridForPageChange();
+            };
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView1.Columns["statusDataGridViewTextBoxColumn"].Index && e.RowIndex >= 0)
+            {
+                generateBackup();
+                DataGridView gridView = sender as DataGridView;
+                var index = Int32.Parse((string)gridView.Rows[e.RowIndex].HeaderCell.Value) - 1;
+                var columnIndex = dataGridView1.Columns["statusDataGridViewTextBoxColumn"].Index;
+                context.data[index].Status = !(bool)gridView.Rows[e.RowIndex].Cells[columnIndex].Value;
+                RebindGridForPageChange();
+
+            }
+        }
+
+        private void addAVirtualHostToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var model = new VirtualHost();
+            //listVirtualHostForm.Add(newItem);var dialog = new VirtualHostManager.Forms.VirtualHostDetail();
+            var dialog = new VirtualHostManager.Forms.VirtualHostDetail();
+            dialog.formType = VirtualHostDetailType.Edit;
+            dialog.Url = "";
+            dialog.Directory = "";
+            dialog.CreateAt = "";
+            dialog.Description = "";
+            dialog.Context = dataStorageService.VirualHostTemplateRead(AppConst.VirtualHostTemplate);
+            dialog.Status = true;
+            dialog.saveCallback = () =>
+            {
+                try
+                {
+                    generateBackup();
+                    model.Url = dialog.Url;
+                    model.Directory = dialog.Directory;
+                    model.CreateAt = DateTime.Now.ToString();
+                    model.UpdateAt = DateTime.Now.ToString();
+                    model.Description = dialog.Description;
+                    model.Context = dialog.Context;
+                    model.Status = dialog.Status;
+                    model.Author = dialog.Author;
+                    context.data.Add(model);
+                    //Rebind the Datagridview with the data.
+                    RebindGridForPageChange();
+                    setItems();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Vui lòng sửa lại đường dẫn", "Đường dẫn lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+            using (Panel p = this.blurPanel())
+            {
+                dialog.ShowDialog();
+            }
         }
     }
 }

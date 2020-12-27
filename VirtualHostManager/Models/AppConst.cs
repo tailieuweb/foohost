@@ -11,5 +11,6 @@ namespace VirtualHostManager.Models
         public static string filePathConfig = "filePathConfig.txt";
         public static string VirtualHostColumns = "VirtualHostColumns.txt";
         public static string VirtualHostTemplate = "VirtualHostTemplate.txt";
+        public static string BackupFolder = "Backup";
     }
 }

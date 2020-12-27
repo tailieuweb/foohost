@@ -54,7 +54,7 @@ namespace VirtualHostManager.Forms
             this.noteText.Multiline = true;
             this.noteText.Name = "noteText";
             this.noteText.Size = new System.Drawing.Size(409, 35);
-            this.noteText.TabIndex = 15;
+            this.noteText.TabIndex = 6;
             // 
             // label4
             // 
@@ -87,14 +87,14 @@ namespace VirtualHostManager.Forms
             this.dateCreated.Location = new System.Drawing.Point(12, 196);
             this.dateCreated.Name = "dateCreated";
             this.dateCreated.Size = new System.Drawing.Size(409, 20);
-            this.dateCreated.TabIndex = 12;
+            this.dateCreated.TabIndex = 5;
             // 
             // directoryText
             // 
             this.directoryText.Location = new System.Drawing.Point(12, 106);
             this.directoryText.Name = "directoryText";
             this.directoryText.Size = new System.Drawing.Size(409, 20);
-            this.directoryText.TabIndex = 11;
+            this.directoryText.TabIndex = 3;
             // 
             // label2
             // 
@@ -114,7 +114,7 @@ namespace VirtualHostManager.Forms
             this.urlText.Location = new System.Drawing.Point(13, 31);
             this.urlText.Name = "urlText";
             this.urlText.Size = new System.Drawing.Size(409, 20);
-            this.urlText.TabIndex = 9;
+            this.urlText.TabIndex = 1;
             // 
             // label1
             // 
@@ -135,7 +135,7 @@ namespace VirtualHostManager.Forms
             this.ContextText.Multiline = true;
             this.ContextText.Name = "ContextText";
             this.ContextText.Size = new System.Drawing.Size(409, 150);
-            this.ContextText.TabIndex = 17;
+            this.ContextText.TabIndex = 7;
             this.ContextText.Text = resources.GetString("ContextText.Text");
             // 
             // label5
@@ -162,7 +162,7 @@ namespace VirtualHostManager.Forms
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Primary = true;
             this.saveBtn.Size = new System.Drawing.Size(47, 36);
-            this.saveBtn.TabIndex = 20;
+            this.saveBtn.TabIndex = 8;
             this.saveBtn.Text = "Lưu";
             this.saveBtn.UseVisualStyleBackColor = true;
             this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
@@ -178,7 +178,7 @@ namespace VirtualHostManager.Forms
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Primary = true;
             this.cancelBtn.Size = new System.Drawing.Size(48, 36);
-            this.cancelBtn.TabIndex = 21;
+            this.cancelBtn.TabIndex = 9;
             this.cancelBtn.Text = "Huỷ";
             this.cancelBtn.UseVisualStyleBackColor = true;
             this.cancelBtn.Click += new System.EventHandler(this.cancelBtn_Click);
@@ -206,7 +206,7 @@ namespace VirtualHostManager.Forms
             this.statuschkBox.Name = "statuschkBox";
             this.statuschkBox.Ripple = true;
             this.statuschkBox.Size = new System.Drawing.Size(93, 30);
-            this.statuschkBox.TabIndex = 23;
+            this.statuschkBox.TabIndex = 2;
             this.statuschkBox.Text = "Trạng thái";
             this.statuschkBox.UseVisualStyleBackColor = true;
             // 
@@ -215,7 +215,7 @@ namespace VirtualHostManager.Forms
             this.authortxt.Location = new System.Drawing.Point(12, 151);
             this.authortxt.Name = "authortxt";
             this.authortxt.Size = new System.Drawing.Size(409, 20);
-            this.authortxt.TabIndex = 25;
+            this.authortxt.TabIndex = 4;
             // 
             // materialLabel1
             // 

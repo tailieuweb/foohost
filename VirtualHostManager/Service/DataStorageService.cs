@@ -18,8 +18,12 @@ namespace VirtualHostManager.Service
 
         public void Save(string fileName, object data)
         {
-
-            var fileStream = new FileStream(Application.UserAppDataPath + fileName, FileMode.Truncate, FileAccess.ReadWrite);
+            var file = Path.Combine(Application.UserAppDataPath, fileName);
+            if (!File.Exists(file))
+            {
+                File.Create(file).Close();
+            }
+            var fileStream = new FileStream(file, FileMode.Truncate, FileAccess.ReadWrite);
 
             var serializeData = JsonConvert.SerializeObject(data);
             byte[] info = new UTF8Encoding(true).GetBytes(serializeData);
@@ -29,8 +33,9 @@ namespace VirtualHostManager.Service
         }
         public void Save(string fileName, string data)
         {
+            var file = Path.Combine(Application.UserAppDataPath, fileName);
 
-            var fileStream = new FileStream(Application.UserAppDataPath + fileName, FileMode.Truncate, FileAccess.ReadWrite);
+            var fileStream = new FileStream(file, FileMode.Truncate, FileAccess.ReadWrite);
 
             byte[] info = new UTF8Encoding(true).GetBytes(data);
             fileStream.Write(info, 0, info.Length);
@@ -39,11 +44,12 @@ namespace VirtualHostManager.Service
         }
         public T Read<T>(string fileName)
         {
-            if(!File.Exists(Application.UserAppDataPath + fileName))
+            var file = Path.Combine(Application.UserAppDataPath, fileName);
+            if (!File.Exists(file))
             {
-                File.Create(Application.UserAppDataPath + fileName).Close();
+                File.Create(file).Close();
             }
-            using (StreamReader r = new StreamReader(Application.UserAppDataPath + fileName))
+            using (StreamReader r = new StreamReader(file))
             {
                 string rs = r.ReadToEnd();
                 if(typeof(T) == typeof(String))

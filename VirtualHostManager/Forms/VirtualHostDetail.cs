@@ -13,7 +13,7 @@ using VirtualHostManager.Models;
 
 namespace VirtualHostManager.Forms
 {
-    public partial class VirtualHostDetail : Form
+    public partial class VirtualHostDetail : BaseForm
     {
         public VirtualHostDetail()
         {

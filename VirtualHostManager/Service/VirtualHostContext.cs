@@ -63,7 +63,7 @@ namespace VirtualHostManager
                                     .ToList();
                 data = rawData.Select(x =>
                 {
-                    var context = Regex.Match(x, @"\n{1}#*[^\S\r\n]*<\s*VirtualHost[^>]*>(.*?)<\s*\/\s*VirtualHost>", RegexOptions.Singleline).Value.Trim('\n');
+                    var context = Regex.Match(x, @"\n{1}#*[^\S\r\n]*<\s*VirtualHost[^>]*>(.*?)<\s*\/\s*VirtualHost\s*>", RegexOptions.Singleline).Value.Trim('\n');
                     var status = !context.StartsWith("#");
                     if (!status)
                     {
@@ -75,10 +75,10 @@ namespace VirtualHostManager
                     var userDeclareData = Regex.Match(x, @"# Virtural Host Manager(.*?)###", RegexOptions.Singleline).Value.Trim('\n');
                     return new VirtualHost()
                     {
-                        Url = Regex.Match(userDeclareData, @"Url:(.*?)\n").Value.Replace("Url:", "").Replace("\r\n", ""),
+                        Url = Regex.Match(x, @"ServerName(.*?)\n").Value.Replace("ServerName", "").Replace("\r\n", ""),
                         CreateAt = Regex.Match(userDeclareData, @"CreateAt:(.*?)\n").Value.Replace("CreateAt:", "").Replace("\r\n", ""),
                         Description = Regex.Match(userDeclareData, @"Description:(.*?)\n").Value.Replace("Description:", "").Replace("\r\n", ""),
-                        Directory = Regex.Match(userDeclareData, @"Directory:(.*?)\n").Value.Replace("Directory:", "").Replace("\r\n", ""),
+                        Directory = Regex.Match(x, @"<Directory(.*?)>\s*\n").Value.Replace("<Directory", "").Replace(">", "").Replace("\r\n", "").Trim().Trim('"'),
                         Context = context,
                         Author = Regex.Match(userDeclareData, @"Author:(.*?)\n").Value.Replace("Author:", "").Replace("\r\n", ""),
                         UpdateAt = Regex.Match(userDeclareData, @"UpdateAt:(.*?)\n").Value.Replace("UpdateAt:", "").Replace("\r\n", ""),

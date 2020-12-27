@@ -13,7 +13,7 @@ using VirtualHostManager.Models;
 
 namespace VirtualHostManager.Forms
 {
-    public partial class HostForm : Form
+    public partial class HostForm : BaseForm
     {
 
         private HostContext context;
@@ -55,11 +55,12 @@ namespace VirtualHostManager.Forms
                 return x;
             }).ToList();
             context.SaveChanges();
+            MessageBox.Show("Đã lưu thành công", "Đã lưu", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void addNewBtn_Click(object sender, EventArgs e)
         {
-            ((BindingList<Hosts>)dataGridView1.DataSource).Insert(0, new Hosts());
+            ((BindingList<Hosts>)dataGridView1.DataSource).Insert(0, new Hosts() { Status = true });
         }
     }
 }
