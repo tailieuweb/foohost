@@ -33,9 +33,21 @@ namespace VirtualHostManager.Forms
         {
 
             InitializeComponent();
+
+            /*
+             * Add event listener to change status list label 
+             */
+            listVirtualHostForm.ListChanged += (object sender, ListChangedEventArgs e) =>
+            {
+                var disableNumber = context.data.Where(x => x.Status == false).Count();
+                var enableNumber = context.data.Where(x => x.Status == true).Count();
+                statusListlbl.Text = string.Format("Enable items: {0}  Disable items: {1}", enableNumber, disableNumber);
+            };
+
             dataStorageService = new DataStorageService();
 
             var filePath = dataStorageService.Read<string>(AppConst.filePathConfig).Replace("\"", "");
+            filePathlbl.Text = filePath;
             if (!string.IsNullOrEmpty(filePath))
             {
                 context = new VirtualHostContext(filePath);
@@ -68,6 +80,7 @@ namespace VirtualHostManager.Forms
                 else
                 {
                     dataStorageService.Save(AppConst.filePathConfig, filePath);
+                    filePathlbl.Text = filePath;
                     context = new VirtualHostContext(filePath);
                     context.Read();
                     setItems();
@@ -84,7 +97,7 @@ namespace VirtualHostManager.Forms
         {
             //flowLayoutPanel1.Controls.Clear();
             var items = context.data;
-            listVirtualHostForm = new BindingList<VirtualHost>();
+            listVirtualHostForm.Clear();
             items.ForEach(x =>
             {
                 //flowLayoutPanel1.Controls.Add(newItem);
@@ -130,7 +143,7 @@ namespace VirtualHostManager.Forms
                 PagesCount = Convert.ToInt32(Math.Ceiling(data.Count * 1.0 / pageRows));
                 //Rebinding the Datagridview with data
                 int datasourcestartIndex = (CurrentPage - 1) * pageRows;
-                listVirtualHostForm = new BindingList<VirtualHost>();
+                listVirtualHostForm.Clear();
                 for (int i = datasourcestartIndex; i < datasourcestartIndex + pageRows; i++)
                 {
                     if (i >= data.Count)
@@ -479,7 +492,7 @@ namespace VirtualHostManager.Forms
                 var columnIndex = dataGridView1.Columns["statusDataGridViewTextBoxColumn"].Index;
                 context.data[index].Status = !(bool)gridView.Rows[e.RowIndex].Cells[columnIndex].Value;
                 RebindGridForPageChange();
-
+                
             }
         }
 

@@ -31,11 +31,11 @@ namespace VirtualHostManager.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VirtualHostList));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new VirtualHostManager.UserControls.DataGridViewDoubleBuffered();
@@ -76,6 +76,9 @@ namespace VirtualHostManager.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.filePathlbl = new System.Windows.Forms.Label();
+            this.statusListlbl = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.virtualHostBindingSource3)).BeginInit();
@@ -97,20 +100,20 @@ namespace VirtualHostManager.Forms
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.urlDataGridViewTextBoxColumn,
@@ -125,21 +128,21 @@ namespace VirtualHostManager.Forms
             this.EditAction,
             this.DeleteAction});
             this.dataGridView1.DataSource = this.virtualHostBindingSource3;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dataGridView1.RowHeadersWidth = 51;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(1289, 655);
             this.dataGridView1.TabIndex = 0;
@@ -152,8 +155,8 @@ namespace VirtualHostManager.Forms
             // urlDataGridViewTextBoxColumn
             // 
             this.urlDataGridViewTextBoxColumn.DataPropertyName = "Url";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Transparent;
-            this.urlDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Transparent;
+            this.urlDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle8;
             this.urlDataGridViewTextBoxColumn.HeaderText = "Host";
             this.urlDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.urlDataGridViewTextBoxColumn.Name = "urlDataGridViewTextBoxColumn";
@@ -304,42 +307,42 @@ namespace VirtualHostManager.Forms
             // đổiĐườngDẫnToolStripMenuItem
             // 
             this.đổiĐườngDẫnToolStripMenuItem.Name = "đổiĐườngDẫnToolStripMenuItem";
-            this.đổiĐườngDẫnToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.đổiĐườngDẫnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.đổiĐườngDẫnToolStripMenuItem.Text = "Open File";
             this.đổiĐườngDẫnToolStripMenuItem.Click += new System.EventHandler(this.đổiĐườngDẫnToolStripMenuItem_Click);
             // 
             // addAVirtualHostToolStripMenuItem
             // 
             this.addAVirtualHostToolStripMenuItem.Name = "addAVirtualHostToolStripMenuItem";
-            this.addAVirtualHostToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.addAVirtualHostToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addAVirtualHostToolStripMenuItem.Text = "Add a virtual host";
             this.addAVirtualHostToolStripMenuItem.Click += new System.EventHandler(this.addAVirtualHostToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save as";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // thoátToolStripMenuItem
             // 
             this.thoátToolStripMenuItem.Name = "thoátToolStripMenuItem";
-            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.thoátToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.thoátToolStripMenuItem.Text = "Exit";
             this.thoátToolStripMenuItem.Click += new System.EventHandler(this.thoátToolStripMenuItem_Click_1);
             // 
@@ -513,12 +516,47 @@ namespace VirtualHostManager.Forms
             this.comboBox1.TabIndex = 13;
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(10, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 16);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "File Path: ";
+            // 
+            // filePathlbl
+            // 
+            this.filePathlbl.AutoSize = true;
+            this.filePathlbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filePathlbl.Location = new System.Drawing.Point(69, 24);
+            this.filePathlbl.Name = "filePathlbl";
+            this.filePathlbl.Size = new System.Drawing.Size(11, 16);
+            this.filePathlbl.TabIndex = 15;
+            this.filePathlbl.Text = " ";
+            // 
+            // statusListlbl
+            // 
+            this.statusListlbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.statusListlbl.AutoSize = true;
+            this.statusListlbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusListlbl.Location = new System.Drawing.Point(570, 24);
+            this.statusListlbl.Name = "statusListlbl";
+            this.statusListlbl.Size = new System.Drawing.Size(186, 16);
+            this.statusListlbl.TabIndex = 16;
+            this.statusListlbl.Text = "Enable items:   Disable items: ";
+            this.statusListlbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // VirtualHostList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1316, 761);
+            this.Controls.Add(this.statusListlbl);
+            this.Controls.Add(this.filePathlbl);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -586,5 +624,8 @@ namespace VirtualHostManager.Forms
         private System.Windows.Forms.DataGridViewButtonColumn EditAction;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteAction;
         private System.Windows.Forms.ToolStripMenuItem addAVirtualHostToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label filePathlbl;
+        private System.Windows.Forms.Label statusListlbl;
     }
 }

@@ -40,5 +40,15 @@ namespace VirtualHostManager.Forms
 
             return p;
         }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (Form.ModifierKeys == Keys.None && this.Modal == true && keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
     }
 }
