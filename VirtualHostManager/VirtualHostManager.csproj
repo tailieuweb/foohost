@@ -240,6 +240,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MaterialSkin.dll" />
+    <None Include="Resources\trash.png" />
+    <None Include="Resources\edit.png" />
     <None Include="Forms\Resources\add-plus-button.png" />
   </ItemGroup>
   <ItemGroup>
