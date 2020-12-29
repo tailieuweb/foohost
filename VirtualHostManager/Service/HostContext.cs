@@ -19,6 +19,11 @@ namespace VirtualHostManager
         {
             _filePath = @"C:\Windows\System32\drivers\etc\hosts";
         }
+
+        public string getFilePath()
+        {
+            return _filePath;
+        }
         
         public void SaveChanges()
         {

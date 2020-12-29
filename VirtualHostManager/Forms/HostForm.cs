@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +32,7 @@ namespace VirtualHostManager.Forms
             //dataGridView1.DataSource = list;
             dataGridView1.DataSource = list;
 
+            filePathlbl.Text = context.getFilePath();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -61,6 +64,22 @@ namespace VirtualHostManager.Forms
         private void addNewBtn_Click(object sender, EventArgs e)
         {
             ((BindingList<Hosts>)dataGridView1.DataSource).Insert(0, new Hosts() { Status = true });
+        }
+
+        private void filePathlbl_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var process = new Process();
+                process.StartInfo.FileName = context.getFilePath();
+                process.StartInfo.ErrorDialog = true;
+                process.StartInfo.Verb = "open";
+                process.Start();
+            }
+            catch(FileNotFoundException ex)
+            {
+                MessageBox.Show("File Not Found", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
