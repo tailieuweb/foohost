@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using VirtualHostManager.Extensions;
 using VirtualHostManager.Models;
+using VirtualHostManager.Properties;
 using VirtualHostManager.Service;
 
 namespace VirtualHostManager.Forms
@@ -137,7 +138,11 @@ namespace VirtualHostManager.Forms
         {
             try
             {
-                var diskPath = comboBox1.SelectedItem.ToString().Replace(@"\\", @"\");
+                var diskPath = "All";
+                if(comboBox1.SelectedItem != null)
+                {
+                    diskPath = comboBox1.SelectedItem.ToString().Replace(@"\\", @"\");
+                }
                 var data = context.data.Where(x => x.Url.Contains(textBox1.Text) && (x.Directory.StartsWith(diskPath) || diskPath == "All")).ToList();
 
                 PagesCount = Convert.ToInt32(Math.Ceiling(data.Count * 1.0 / pageRows));
@@ -280,8 +285,8 @@ namespace VirtualHostManager.Forms
             DataGridView gridView = sender as DataGridView;
             if (null != gridView)
             {
-                gridView.Rows[e.RowIndex].Cells["EditAction"].Value = "Edit";
-                gridView.Rows[e.RowIndex].Cells["DeleteAction"].Value = "Delete";
+                gridView.Rows[e.RowIndex].Cells["EditAction"].Value = new Bitmap(Resources.edit, new Size(16, 16));
+                gridView.Rows[e.RowIndex].Cells["DeleteAction"].Value = new Bitmap(Resources.trash, new Size(16, 16));
             }
         }
 
@@ -534,6 +539,23 @@ namespace VirtualHostManager.Forms
             using (Panel p = this.blurPanel())
             {
                 dialog.ShowDialog();
+            }
+        }
+
+        private void filePathlbl_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Process.Start(filePathlbl.Text);
+                var process = new Process();
+                process.StartInfo.FileName = filePathlbl.Text;
+                process.StartInfo.ErrorDialog = true;
+                process.StartInfo.Verb = "open";
+                process.Start();
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show("File Not Found", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
