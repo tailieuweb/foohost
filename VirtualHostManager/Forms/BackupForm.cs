@@ -21,17 +21,24 @@ namespace VirtualHostManager.Forms
         public BackupForm()
         {
             InitializeComponent();
-            dataStorageService = new DataStorageService();
-            var filePath = Path.Combine(Application.UserAppDataPath, AppConst.BackupFolder);
-            var files = Directory.GetFiles(filePath)
-                .Select(x => new Backup() 
+            try
             {
-                File = Path.GetFileName(x),
-                Time = DateTime.ParseExact(Path.GetFileNameWithoutExtension(x), "MMddyyyyhhmmss", System.Globalization.CultureInfo.InvariantCulture)
-                               .ToString(),
-            }).ToList();
-            var list = new BindingList<Backup>(files);
-            dataGridView1.DataSource = list;
+                dataStorageService = new DataStorageService();
+                var filePath = Path.Combine(Application.UserAppDataPath, AppConst.BackupFolder);
+                var files = Directory.GetFiles(filePath)
+                    .Select(x => new Backup()
+                    {
+                        File = Path.GetFileName(x),
+                        Time = DateTime.ParseExact(Path.GetFileNameWithoutExtension(x), "MMddyyyyhhmmss", System.Globalization.CultureInfo.InvariantCulture)
+                                   .ToString(),
+                    }).ToList();
+                var list = new BindingList<Backup>(files);
+                dataGridView1.DataSource = list;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
