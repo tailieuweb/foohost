@@ -46,6 +46,7 @@ namespace VirtualHostManager.Forms
             this.statuschkBox = new MaterialSkin.Controls.MaterialCheckBox();
             this.authortxt = new System.Windows.Forms.TextBox();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.selectPathbtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // noteText
@@ -95,6 +96,7 @@ namespace VirtualHostManager.Forms
             this.directoryText.Name = "directoryText";
             this.directoryText.Size = new System.Drawing.Size(409, 20);
             this.directoryText.TabIndex = 3;
+            this.directoryText.TextChanged += new System.EventHandler(this.directoryText_TextChanged);
             // 
             // label2
             // 
@@ -115,6 +117,7 @@ namespace VirtualHostManager.Forms
             this.urlText.Name = "urlText";
             this.urlText.Size = new System.Drawing.Size(409, 20);
             this.urlText.TabIndex = 1;
+            this.urlText.TextChanged += new System.EventHandler(this.urlText_TextChanged);
             // 
             // label1
             // 
@@ -125,9 +128,9 @@ namespace VirtualHostManager.Forms
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.MouseState = MaterialSkin.MouseState.HOVER;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 19);
+            this.label1.Size = new System.Drawing.Size(95, 19);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Url";
+            this.label1.Text = "Server Name";
             // 
             // ContextText
             // 
@@ -137,6 +140,7 @@ namespace VirtualHostManager.Forms
             this.ContextText.Size = new System.Drawing.Size(409, 150);
             this.ContextText.TabIndex = 7;
             this.ContextText.Text = resources.GetString("ContextText.Text");
+            this.ContextText.TextChanged += new System.EventHandler(this.ContextText_TextChanged);
             // 
             // label5
             // 
@@ -230,12 +234,28 @@ namespace VirtualHostManager.Forms
             this.materialLabel1.TabIndex = 24;
             this.materialLabel1.Text = "Author";
             // 
+            // selectPathbtn
+            // 
+            this.selectPathbtn.BackColor = System.Drawing.Color.White;
+            this.selectPathbtn.BackgroundImage = global::VirtualHostManager.Properties.Resources.edit;
+            this.selectPathbtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.selectPathbtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selectPathbtn.FlatAppearance.BorderSize = 0;
+            this.selectPathbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectPathbtn.Location = new System.Drawing.Point(395, 108);
+            this.selectPathbtn.Name = "selectPathbtn";
+            this.selectPathbtn.Size = new System.Drawing.Size(15, 15);
+            this.selectPathbtn.TabIndex = 25;
+            this.selectPathbtn.UseVisualStyleBackColor = false;
+            this.selectPathbtn.Click += new System.EventHandler(this.selectPathbtn_Click);
+            // 
             // VirtualHostDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(433, 545);
+            this.Controls.Add(this.selectPathbtn);
             this.Controls.Add(this.authortxt);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.statuschkBox);
@@ -279,5 +299,6 @@ namespace VirtualHostManager.Forms
         private MaterialSkin.Controls.MaterialCheckBox statuschkBox;
         private System.Windows.Forms.TextBox authortxt;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private System.Windows.Forms.Button selectPathbtn;
     }
 }
